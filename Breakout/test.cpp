@@ -16,6 +16,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
+// time between current and last frame
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
+
 // register a callback function on the window that gets called each time the window is resized
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -24,10 +28,11 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 void processInput(GLFWwindow* window)
 {
+    
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
-    const float cameraSpeed = 0.05f; // adjust accordingly
+    float cameraSpeed = 2.5f * deltaTime;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         cameraPos += cameraSpeed * cameraFront;
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
@@ -232,6 +237,12 @@ int main()
     // -----------
     while (!glfwWindowShouldClose(window))
     {
+        // time logic
+        float currentFrame = static_cast<float>(glfwGetTime());
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
+
         // input
         // -----
         processInput(window);
