@@ -9,9 +9,15 @@ In the last update, I've been learning about Directional Light and Point Lights,
 - Lighting Attenuation, applying the formula below
 - Diffuse specular maps added.
 
+# Point Light
+
 ![23_OpenGLPointLight](https://github.com/user-attachments/assets/8e11c744-f8a8-4630-a3bc-e62ef9b0a991)
 
+# Attenuation Formula
+
 ![22_OpenGL_Attenuatuion_Formula](https://github.com/user-attachments/assets/74f282e7-d4c3-421f-94d3-be061e7cb995)
+
+# Directional Light
 
 ![22_OpenGLLightCaster](https://github.com/user-attachments/assets/d7825dcc-b63e-4837-b7b2-44fd6800ff96)
 
