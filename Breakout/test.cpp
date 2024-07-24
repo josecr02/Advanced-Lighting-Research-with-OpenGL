@@ -336,11 +336,16 @@ int main()
         //lightingShader.setVec3("lightPos", lightPos);
         //lightingShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
         lightingShader.setVec3("light.position", lightPos);
+        lightingShader.setVec3("light.direction", camera.Front);
+        lightingShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+        lightingShader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
         lightingShader.setVec3("viewPos", camera.Position);
 
         // light properties
-        lightingShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-        lightingShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+        lightingShader.setVec3("light.ambient", 0.1f, 0.1f, 0.1f);
+        // we configure the diffuse intensity slightly higher; the right lighting conditions differ with each lighting method and environment.
+        // each environment and lighting type requires some tweaking to get the best out of your environment.
+        lightingShader.setVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
         lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
         lightingShader.setFloat("light.constant", 1.0f);
         lightingShader.setFloat("light.linear", 0.09f);
@@ -370,8 +375,8 @@ int main()
         glBindTexture(GL_TEXTURE_2D, specularMap);
 
         // render the cube
-        glBindVertexArray(cubeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        // glBindVertexArray(cubeVAO);
+        // glDrawArrays(GL_TRIANGLES, 0, 36);
 
         // render containers
         glBindVertexArray(cubeVAO);
@@ -387,14 +392,14 @@ int main()
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
-        // also draw the lamp object
-        cubeShader.use();
-        cubeShader.setMat4("projection", projection);
-        cubeShader.setMat4("view", view);
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, lightPos);
-        model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-        cubeShader.setMat4("model", model);
+        // also draw the lamp object -----------------------
+        // cubeShader.use();
+        // cubeShader.setMat4("projection", projection);
+        // cubeShader.setMat4("view", view);
+        // model = glm::mat4(1.0f);
+       //  model = glm::translate(model, lightPos);
+       //  model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+       //  cubeShader.setMat4("model", model);
 
 
         // bind textures on corresponding texture units
@@ -454,8 +459,8 @@ int main()
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
 
-        glBindVertexArray(lightCubeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        // glBindVertexArray(lightCubeVAO);
+        // glDrawArrays(GL_TRIANGLES, 0, 36);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
