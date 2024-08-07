@@ -191,6 +191,13 @@ int main()
         1, 2, 3  // second triangle
     }; // (not used)
 
+     // positions of the point lights
+    glm::vec3 pointLightPositions[] = {
+        glm::vec3(0.7f,  0.2f,  2.0f),
+        glm::vec3(2.3f, -3.3f, -4.0f),
+        glm::vec3(-4.0f,  2.0f, -12.0f),
+        glm::vec3(0.0f,  0.0f, -3.0f)
+    };
     
 
 
@@ -326,34 +333,93 @@ int main()
 
         // render
         // ------
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        glClearColor(0.75f, 0.52f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glm::vec3 pointLightColors[] = {
+            glm::vec3(1.0f, 0.6f, 0.0f),
+            glm::vec3(1.0f, 0.0f, 0.0f),
+            glm::vec3(1.0f, 1.0, 0.0),
+            glm::vec3(0.2f, 0.2f, 1.0f)
+        };
 
         // be sure to activate shader when setting uniforms/drawing objects
         lightingShader.use();
+        lightingShader.setVec3("viewPos", camera.Position);
+        lightingShader.setFloat("material.shininess", 32.0f);
+
+
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "dirLight.direction"), -0.2f, -1.0f, -0.3f);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "dirLight.ambient"), 0.3f, 0.24f, 0.14f);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "dirLight.diffuse"), 0.7f, 0.42f, 0.26f);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "dirLight.specular"), 0.5f, 0.5f, 0.5f);
+        // Point light 1
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[0].position"), pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[0].ambient"), pointLightColors[0].x * 0.1, pointLightColors[0].y * 0.1, pointLightColors[0].z * 0.1);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[0].diffuse"), pointLightColors[0].x, pointLightColors[0].y, pointLightColors[0].z);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[0].specular"), pointLightColors[0].x, pointLightColors[0].y, pointLightColors[0].z);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "pointLights[0].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "pointLights[0].linear"), 0.09);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "pointLights[0].quadratic"), 0.032);
+        // Point light 2
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[1].position"), pointLightPositions[1].x, pointLightPositions[1].y, pointLightPositions[1].z);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[1].ambient"), pointLightColors[1].x * 0.1, pointLightColors[1].y * 0.1, pointLightColors[1].z * 0.1);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[1].diffuse"), pointLightColors[1].x, pointLightColors[1].y, pointLightColors[1].z);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[1].specular"), pointLightColors[1].x, pointLightColors[1].y, pointLightColors[1].z);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "pointLights[1].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "pointLights[1].linear"), 0.09);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "pointLights[1].quadratic"), 0.032);
+        // Point light 3
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[2].position"), pointLightPositions[2].x, pointLightPositions[2].y, pointLightPositions[2].z);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[2].ambient"), pointLightColors[2].x * 0.1, pointLightColors[2].y * 0.1, pointLightColors[2].z * 0.1);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[2].diffuse"), pointLightColors[2].x, pointLightColors[2].y, pointLightColors[2].z);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[2].specular"), pointLightColors[2].x, pointLightColors[2].y, pointLightColors[2].z);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "pointLights[2].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "pointLights[2].linear"), 0.09);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "pointLights[2].quadratic"), 0.032);
+        // Point light 4
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[3].position"), pointLightPositions[3].x, pointLightPositions[3].y, pointLightPositions[3].z);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[3].ambient"), pointLightColors[3].x * 0.1, pointLightColors[3].y * 0.1, pointLightColors[3].z * 0.1);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[3].diffuse"), pointLightColors[3].x, pointLightColors[3].y, pointLightColors[3].z);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "pointLights[3].specular"), pointLightColors[3].x, pointLightColors[3].y, pointLightColors[3].z);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "pointLights[3].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "pointLights[3].linear"), 0.09);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "pointLights[3].quadratic"), 0.032);
+        // SpotLight
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "spotLight.position"), camera.Position.x, camera.Position.y, camera.Position.z);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "spotLight.direction"), camera.Front.x, camera.Front.y, camera.Front.z);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "spotLight.ambient"), 0.0f, 0.0f, 0.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "spotLight.diffuse"), 0.8f, 0.8f, 0.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "spotLight.specular"), 0.8f, 0.8f, 0.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "spotLight.constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "spotLight.linear"), 0.09);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "spotLight.quadratic"), 0.032);
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "spotLight.cutOff"), glm::cos(glm::radians(12.5f)));
+        glUniform1f(glGetUniformLocation(lightingShader.ID, "spotLight.outerCutOff"), glm::cos(glm::radians(13.0f)));
+
         //lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
         //lightingShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
         //lightingShader.setVec3("lightPos", lightPos);
         //lightingShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
-        lightingShader.setVec3("light.position", lightPos);
-        lightingShader.setVec3("light.direction", camera.Front);
-        lightingShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
-        lightingShader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
-        lightingShader.setVec3("viewPos", camera.Position);
+        // lightingShader.setVec3("light.position", lightPos);
+        // lightingShader.setVec3("light.direction", camera.Front);
+        // lightingShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+        // lightingShader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
+        
 
         // light properties
-        lightingShader.setVec3("light.ambient", 0.1f, 0.1f, 0.1f);
+        // lightingShader.setVec3("light.ambient", 0.1f, 0.1f, 0.1f);
         // we configure the diffuse intensity slightly higher; the right lighting conditions differ with each lighting method and environment.
         // each environment and lighting type requires some tweaking to get the best out of your environment.
-        lightingShader.setVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
-        lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-        lightingShader.setFloat("light.constant", 1.0f);
-        lightingShader.setFloat("light.linear", 0.09f);
-        lightingShader.setFloat("light.quadratic", 0.032f);
+        // lightingShader.setVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
+        // lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+        // lightingShader.setFloat("light.constant", 1.0f);
+        // lightingShader.setFloat("light.linear", 0.09f);
+        // lightingShader.setFloat("light.quadratic", 0.032f);
 
         // material properties
         // lightingShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
-        lightingShader.setFloat("material.shininess", 32.0f);
+        
 
 
         // view/projection transformations
@@ -393,9 +459,9 @@ int main()
         }
 
         // also draw the lamp object -----------------------
-        // cubeShader.use();
-        // cubeShader.setMat4("projection", projection);
-        // cubeShader.setMat4("view", view);
+        cubeShader.use();
+        cubeShader.setMat4("projection", projection);
+        cubeShader.setMat4("view", view);
         // model = glm::mat4(1.0f);
        //  model = glm::translate(model, lightPos);
        //  model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
@@ -440,18 +506,16 @@ int main()
         // ourShader.setMat4("view", view);
 
         // render boxes
-        // glBindVertexArray(VAO);
-        // for (unsigned int i = 0; i < 10; i++)
-        // {
-            // calculate the model matrix for each object and pass it to shader before drawing
-           //  glm::mat4 model = glm::mat4(1.0f);
-           //  model = glm::translate(model, cubePositions[i]);
-            // float angle = 20.0f * i;
-            // model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-            // ourShader.setMat4("model", model);
-
-            // glDrawArrays(GL_TRIANGLES, 0, 36);
-        // }
+         // we now draw as many light bulbs as we have point lights.
+        glBindVertexArray(lightCubeVAO);
+        for (unsigned int i = 0; i < 4; i++)
+        {
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, pointLightPositions[i]);
+            model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
+            cubeShader.setMat4("model", model);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
 
         // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         // glDrawArrays(GL_TRIANGLES, 0, 36);
