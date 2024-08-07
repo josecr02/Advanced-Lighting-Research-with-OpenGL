@@ -8,6 +8,17 @@ The Lighting shader has properties for Ambient, Diffuse, and Specular Lighting, 
 In the last updates, I've been learning about Directional Light and Point Lights, and implemented them. Recently, I've added the spotlight, which is implemented as a flashlight on the user.
 - Lighting Attenuation, applying the formula below.
 - Diffuse specular maps added.
+- Multiple Types of light included
+- Desert color
+
+# Multiple Lights + Desert Color
+
+![27_OpenGL_MultipleLights_Desert](https://github.com/user-attachments/assets/d847a157-f7da-4de4-a818-612b5e583aec)
+
+# Multiple Lights
+
+![26_OpenGL_MultipleLights](https://github.com/user-attachments/assets/b8fd97e7-3710-4aee-92b9-4cc3497e0629)
+
 
 # Flashlight with Soft Edges
 
