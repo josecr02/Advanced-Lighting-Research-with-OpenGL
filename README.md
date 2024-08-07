@@ -5,9 +5,14 @@ Latest Update: 14/07/2024
 Current progess:
 
 The Lighting shader has properties for Ambient, Diffuse, and Specular Lighting, completing the Phong Lighting Model. The material property has been added to the lighting fragment shader to interpret lighting on objects.
-In the last update, I've been learning about Directional Light and Point Lights, and implemented them. More cool stuff:
-- Lighting Attenuation, applying the formula below
+In the last updates, I've been learning about Directional Light and Point Lights, and implemented them. Recently, I've added the spotlight, which is implemented as a flashlight on the user.
+- Lighting Attenuation, applying the formula below.
 - Diffuse specular maps added.
+
+# Flashlight with Soft Edges
+
+![25_OpenGL_FlashLight_SoftEdges](https://github.com/user-attachments/assets/1c94d9c9-fccc-4398-9dff-d3b5226aced9)
+
 
 # Point Light
 
