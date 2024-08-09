@@ -1,6 +1,6 @@
 # Rendering Lighting with C++ and OpenGL
 
-Latest Update: 14/07/2024
+Latest Update: 08/06/2024
 
 Current progess:
 
